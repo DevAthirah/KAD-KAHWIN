@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            color: #333;
+        }
+
+        .card {
+            background: #fff;
+            width: 450px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            background: radial-gradient(circle, #ffab91, #ff6f61);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.8em;
+            margin: 10px 0;
+            color: #d32f2f;
+        }
+
+        .card p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .card .names {
+            font-family: 'Pacifico', cursive;
+            font-size: 2em;
+            color: #ff6f61;
+            margin: 20px 0;
+        }
+
+        .card .details {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #777;
+        }
+
+        .card .details span {
+            display: block;
+            margin: 8px 0;
+        }
+
+        .card .rsvp {
+            margin-top: 30px;
+            font-size: 1.3em;
+            color: #00796b;
+        }
+
+        .card .rsvp a {
+            color: #00796b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card .rsvp a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" onclick="window.location='https://www.google.com/maps/place/Perpustakaan+Tun+Abdul+Razak,+UiTM+Cawangan+Perak+Kampus+Tapah';">
+        <img src="alesha.jpg" alt="Wedding Invitation">
+        <h1>You Are Invited!</h1>
+        <p>Celebrate the union of</p>
+        <p class="names">Alesha & Haziq</p>
+        <p class="details">
+            <span><strong>Date:</strong> February 14, 2025</span>
+            <span><strong>Time:</strong> 4:00 PM</span>
+            <span><strong>Venue:</strong> PTAR Aras 3, 35400, Tapah, Perak</span>
+        </p>
+        <p class="rsvp">Kindly RSVP at <a href="mailto:example@wedding.com">example@wedding.com</a></p>
+        <div class="footer">We can't wait to share this special day with you!</div>
+    </div>
+</body>
+</html>
