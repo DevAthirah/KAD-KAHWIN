@@ -1,13 +1,17 @@
-from flask import Flask, jsonify
+from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/api/flask/health')
+@app.route('/')
+def home():
+    return "KadKahwin Flask backend is running 🚀"
+
+@app.route('/health')
 def health():
-    return jsonify({
+    return {
             "status": "ok",
-            "service": "kadkahwin-backend"
-        })
+            "service": "kadkahwin-flask"
+        }
 
 #if __name__ == "__main__":
 #    app.run()
