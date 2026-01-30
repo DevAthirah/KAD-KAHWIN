@@ -8,3 +8,13 @@
 [2025-12-31 17:56:45 +0000] [2121] [INFO] Handling signal: term
 [2025-12-31 17:56:45 +0000] [2121] [ERROR] Worker (pid:2122) was sent SIGHUP!
 [2025-12-31 17:56:46 +0000] [2121] [INFO] Shutting down: Master
+[2026-01-21 01:51:03 +0000] [1907] [INFO] Starting gunicorn 23.0.0
+[2026-01-21 01:51:03 +0000] [1907] [INFO] Listening at: http://127.0.0.1:5001 (1907)
+[2026-01-21 01:51:03 +0000] [1907] [INFO] Using worker: sync
+[2026-01-21 01:51:03 +0000] [1908] [INFO] Booting worker with pid: 1908
+127.0.0.1 - - [21/Jan/2026:01:51:08 +0000] "GET /hello HTTP/1.0" 200 44 "http://kadkahwin.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+127.0.0.1 - - [21/Jan/2026:01:51:16 +0000] "GET /hello HTTP/1.0" 200 44 "http://kadkahwin.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[2026-01-21 02:42:39 +0000] [1908] [INFO] Worker exiting (pid: 1908)
+[2026-01-21 02:42:39 +0000] [1907] [INFO] Handling signal: term
+[2026-01-21 02:42:39 +0000] [1907] [ERROR] Worker (pid:1908) was sent SIGTERM!
+[2026-01-21 02:42:40 +0000] [1907] [INFO] Shutting down: Master
