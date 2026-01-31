@@ -20,7 +20,8 @@
       </p>
 
       <button onclick="callNode()">Call Node API</button>
-      <button onclick="callFlask()">Call Flask API</button>
+      <button id="callFlask">Call Flask API</button>
+      <p id="result"></p>
 
       <p class="rsvp">
         Kindly RSVP at
@@ -32,17 +33,30 @@
     </div>
 
     <script>
+      document.getElementById("callFlask").addEventListener("click", async () => {
+	try {
+		const res = await fetch("/api/flask/health");
+		const data = await res.json();
+		document.getElementById("result").innerText = 
+			`Status: ${data.status}, Service: ${data.service}`;
+	} catch (err) {	
+		document.getElementById("result").innerText = "Error calling Flask API";
+		console.error(err);
+	}
+
+       });
+
       function callNode() {
         fetch("/api/node/hello")
           .then((res) => res.json())
           .then((data) => alert(data.message));
       }
 
-      function callFlask() {
+      /*function callFlask() {
         fetch("/api/flask/hello")
           .then((res) => res.json())
           .then((data) => alert(data.message));
-      }
+      }*/
     </script>
   </body>
 </html>
