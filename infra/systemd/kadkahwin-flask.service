@@ -1,0 +1,30 @@
+[Unit]
+Description=KadKahwin Flask App (Gunicorn)
+After=network.target
+
+[Service]
+User=drathirah
+Group=www-data
+WorkingDirectory=/var/www/kadkahwin/backend/flask-app
+Environment="PATH=/var/www/kadkahwin/backend/flask-app/venv/bin"
+
+ExecStart=/var/www/kadkahwin/backend/flask-app/venv/bin/gunicorn \
+	--workers 3 \
+	--bind unix:/var/www/kadkahwin/backend/flask-app/flask.sock \
+	--umask 007 \
+	--access-logfile /var/log/kadkahwin/flask-access.log \
+	--error-logfile /var/log/kadkahwin/flask-error.log \
+	wsgi:app
+
+Restart=always
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
