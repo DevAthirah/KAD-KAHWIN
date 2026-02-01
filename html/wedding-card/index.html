@@ -20,8 +20,8 @@
       </p>
 
       <button onclick="callNode()">Call Node API</button>
-      <button id="callFlask">Call Flask API</button>
-      <p id="result"></p>
+      <button onclick="callFlask()">Call Flask API</button>
+      <button onclick="sendRSVP()">Send RSVP</button>
 
       <p class="rsvp">
         Kindly RSVP at
@@ -33,18 +33,36 @@
     </div>
 
     <script>
-      document.getElementById("callFlask").addEventListener("click", async () => {
-	try {
-		const res = await fetch("/api/flask/health");
-		const data = await res.json();
-		document.getElementById("result").innerText = 
-			`Status: ${data.status}, Service: ${data.service}`;
-	} catch (err) {	
-		document.getElementById("result").innerText = "Error calling Flask API";
-		console.error(err);
-	}
+      function callFlask() {
+	fetch("/api/flask/hello")
+	 .then((res) => {
+	  if (!res.ok) {
+	     throw new Error("Flask API Error");
+	  }
+	  return res.json();
+	 })
+	 .then((data) => {
+	   alert(data.message);
+	 })
+	 .catch((err) => {
+	   alert("Error calling Flask API");
+	   console.error(err);
+	})	
+      }
 
-       });
+      function sendRSVP() {
+	fetch("/api/flask/rsvp", {
+	 method: "POST",
+	 headers: {"Content-Type": "application/json"},
+	 body: JSON.stringify({
+	   name: "Guest Name", 
+	   email: "guest@gmail.com"
+	 })
+        })
+	.then(res => res.json())
+	.then(data => alert(data.message))
+	.catch(err => alert("RSVP Failed"));
+      }
 
       function callNode() {
         fetch("/api/node/hello")
