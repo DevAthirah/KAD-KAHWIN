@@ -1,10 +1,12 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
-app.get('/hello', (req, res) => {
-  res.json({ message: 'Hello from Node.js 👋' });
-});
+app.use(express.json());
 
-app.listen(3001, '127.0.0.1', () => {
-  console.log('Node running on 3001');
+//routes
+app.use(require("./routes/health"));
+app.use(require("./routes/hello"));
+
+app.listen(3001,() => {
+  console.log('Node API running on port 3001');
 });
