@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -34,40 +34,53 @@
 
     <script>
       function callFlask() {
-	fetch("/api/flask/hello")
-	 .then((res) => {
-	  if (!res.ok) {
-	     throw new Error("Flask API Error");
-	  }
-	  return res.json();
-	 })
-	 .then((data) => {
-	   alert(data.message);
-	 })
-	 .catch((err) => {
-	   alert("Error calling Flask API");
-	   console.error(err);
-	})	
+        fetch("/api/flask/hello")
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Flask API Error");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            alert(data.message);
+          })
+          .catch((err) => {
+            alert("Error calling Flask API");
+            console.error(err);
+          });
       }
 
       function sendRSVP() {
-	fetch("/api/flask/rsvp", {
-	 method: "POST",
-	 headers: {"Content-Type": "application/json"},
-	 body: JSON.stringify({
-	   name: "Guest Name", 
-	   email: "guest@gmail.com"
-	 })
+        fetch("/api/flask/rsvp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: "Guest Name",
+            email: "guest@gmail.com",
+          }),
         })
-	.then(res => res.json())
-	.then(data => alert(data.message))
-	.catch(err => alert("RSVP Failed"));
+          .then((res) => res.json())
+          .then((data) => alert(data.message))
+          .catch((err) => alert("RSVP Failed"));
       }
 
       function callNode() {
         fetch("/api/node/hello")
-          .then((res) => res.json())
-          .then((data) => alert(data.message));
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Node API Error");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            alert(data.message);
+          })
+          .catch((err) => {
+            alert("Error calling Node API");
+            console.error(err);
+          })
+          //.then((res) => res.json())
+          //.then((data) => alert(data.message));
       }
 
       /*function callFlask() {
