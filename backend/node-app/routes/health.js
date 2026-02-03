@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get("/health",(req, res) => {
       res.json({
- 	status:"ok",
+ 	status: "ok",
 	service:"kadkahwin-node"
       });
 });
