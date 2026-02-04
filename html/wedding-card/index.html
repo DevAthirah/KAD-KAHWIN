@@ -34,12 +34,19 @@
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script>
-      const socket = io();
+      const socket = io("http://kadkahwin.com", {
+        path: "/socket.io",
+        transports: ["websocket"],
+      });
+
+      socket.on("connect", () => {
+        console.log("WS connected:", socket.id);
+      });
 
       function sendRSVP() {
         socket.emit("rsvp", {
-          name: "Alesha",
-          email: "test@mail.com",
+          name: "Athirah",
+          email: "test@gmail.com",
         });
       }
 
