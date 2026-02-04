@@ -32,6 +32,24 @@
       </div>
     </div>
 
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+      const socket = io();
+
+      function sendRSVP() {
+        socket.emit("rsvp", {
+          name: "Alesha",
+          email: "test@mail.com",
+        });
+      }
+
+      socket.on("rsvp-status", (data) => {
+        alert("RSVP status: " + data.status);
+      });
+    </script>
+
+    <button onclick="sendRSVP()">RSVP (Live)</button>
+
     <script>
       function callFlask() {
         fetch("/api/flask/hello")
@@ -78,9 +96,9 @@
           .catch((err) => {
             alert("Error calling Node API");
             console.error(err);
-          })
-          //.then((res) => res.json())
-          //.then((data) => alert(data.message));
+          });
+        //.then((res) => res.json())
+        //.then((data) => alert(data.message));
       }
 
       /*function callFlask() {
