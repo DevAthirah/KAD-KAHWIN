@@ -45,8 +45,6 @@
       });
 
       function sendRSVPLive() {
-
-      function sendRSVPWS() {
         socket.emit("rsvp", {
           name: "Athirah",
           email: "test@gmail.com",
@@ -57,8 +55,6 @@
         alert("RSVP status: " + data.status);
       });
     </script>
-
-    <button onclick="sendRSVPWS()">RSVP (Live)</button>
 
     <script>
       function callFlask() {
