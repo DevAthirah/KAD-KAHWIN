@@ -1,0 +1,165 @@
+KadKahwin – Wedding Invitation Web System
+
+KadKahwin is a production-style web application for a digital wedding invitation.
+It uses a modern multi-backend architecture with Flask and Node.js, served behind Nginx, and supports REST APIs and WebSocket (real-time) communication.
+
+This project focuses on backend architecture, deployment, and operations stability, rather than just frontend features.
+
+Architecture Overview
+Browser
+   |
+   v
+Nginx (Reverse Proxy)
+   |
+   ├── /api/flask  → Flask + Gunicorn (Unix Socket)
+   ├── /api/node   → Node.js + Express (PM2)
+   └── /socket.io  → Node.js WebSocket (Socket.IO)
+
+Key Design Decisions
+1. Nginx
+Acts as a single entry point, reverse proxy, and static file server.
+
+2. Flask (Python)
+Handles REST APIs such as health checks and RSVP submission.
+Runs with Gunicorn via Unix socket for performance and security.
+
+3. Node.js (JavaScript)
+  Handles:
+  - Real-time WebSocket communication (Socket.IO)
+  - API orchestration and future integrations
+  Managed with PM2 for process reliability.
+
+4. Separation of Concerns
+Flask = business logic & data handling
+Node = real-time events & frontend interaction
+
+Tech Stack
+1. Frontend
+- HTML
+- CSS
+- Vanilla JavaScript
+- Socket.IO Client
+
+2. Backend
+- Flask (Python)
+- Gunicorn
+- Node.js
+- Express
+- Socket.IO
+
+3. Infrastructure & Ops
+- Nginx
+- systemd (Flask service)
+- PM2 (Node process manager)
+- Linux (Ubuntu server)
+
+Backend Structure
+1. Flask Backend
+backend/flask-app/
+├── app/
+│   ├── __init__.py
+│   └── routes/
+│       ├── health.py
+│       ├── hello.py
+│       └── rsvp.py
+├── venv/
+├── wsgi.py
+└── flask.sock
+- Uses application factory pattern
+- Modular routes with Blueprints
+- Production-ready with Gunicorn + systemd
+
+2. Node Backend
+backend/node-app/
+├── routes/
+│   ├── health.js
+│   ├── hello.js
+│   └── rsvp.js
+├── services/
+│   └── flaskClient.js
+├── app.js
+├── ecosystem.config.js
+└── package.json
+- Express-based API routes
+- Socket.IO for real-time events
+- PM2 for auto-restart & log management
+
+API Endpoints
+1. Flask APIs
+Method	Endpoint	          Description
+GET	    /api/flask/health	  Health check
+GET	    /api/flask/hello	  Test endpoint
+POST	  /api/flask/rsvp	    Submit RSVP
+
+2. Node APIs
+Method	Endpoint	          Description
+GET	    /api/node/health	  Health check
+GET	    /api/node/hello	    Test endpoint
+
+3. WebSocket Events (Node)
+Event	      Direction	      Description
+rsvp	      Client → Server	Send RSVP data
+rsvp-status	Server → Client	Live RSVP confirmation
+
+Node handles WebSocket communication to avoid blocking Flask workers.
+
+Nginx Routing
+location /api/flask/ {
+    proxy_pass http://unix:/var/www/kadkahwin/backend/flask-app/flask.sock:;
+}
+
+location /api/node/ {
+    proxy_pass http://127.0.0.1:3001/;
+}
+
+Nginx:
+- Serves frontend files
+- Proxies API traffic
+- Acts as a single public interface
+
+Logging
+1. Nginx
+- /var/log/nginx/kadkahwin.access.log
+- /var/log/nginx/kadkahwin.error.log
+
+2. Flask (Gunicorn)
+- Managed via journalctl
+- Integrated with systemd
+
+3. Node (PM2)
+- /var/log/kadkahwin/node-access.log
+- /var/log/kadkahwin/node-error.log
+
+Process Management
+1. Flask
+- Managed with systemd
+- Auto-start on server boot
+- Runs via Unix socket
+
+2. Node
+- Managed with PM2
+- Auto-restart on crash
+- Auto-start on reboot (pm2 startup + pm2 save)
+
+Current Status:
+✅ Fully working production-style setup
+✅ REST APIs functional
+✅ WebSocket communication functional
+✅ Logging & monitoring in place
+
+Planned features (intentionally postponed):
+- Database integration (SQLite → MySQL)
+- Authentication (JWT/session)
+- Event-driven backend messaging
+
+Learning Goals Achieved:
+- Real-world reverse proxy setup
+- Multi-backend architecture
+- Linux service management
+- WebSocket fundamentals
+- Backend-to-backend communication
+- Production logging & stability
+
+Notes:
+This project prioritizes architecture clarity and operational stability over feature depth.
+It serves as a foundation for future scaling or containerization (Docker).
