@@ -21,7 +21,8 @@
 
       <button onclick="callNode()">Call Node API</button>
       <button onclick="callFlask()">Call Flask API</button>
-      <button onclick="sendRSVP()">Send RSVP</button>
+      <button onclick="sendRSVPHttp()">RSVP (HTTP)</button>
+      <button onclick="sendRSVPLive()">RSVP (Live)</button>
 
       <p class="rsvp">
         Kindly RSVP at
@@ -43,7 +44,7 @@
         console.log("WS connected:", socket.id);
       });
 
-      function sendRSVP() {
+      function sendRSVPLive() {
         socket.emit("rsvp", {
           name: "Athirah",
           email: "test@gmail.com",
@@ -54,8 +55,6 @@
         alert("RSVP status: " + data.status);
       });
     </script>
-
-    <button onclick="sendRSVP()">RSVP (Live)</button>
 
     <script>
       function callFlask() {
@@ -75,7 +74,7 @@
           });
       }
 
-      function sendRSVP() {
+      function sendRSVPHttp() {
         fetch("/api/flask/rsvp", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -86,7 +85,7 @@
         })
           .then((res) => res.json())
           .then((data) => alert(data.message))
-          .catch((err) => alert("RSVP Failed"));
+          .catch(() => alert("RSVP Failed"));
       }
 
       function callNode() {
