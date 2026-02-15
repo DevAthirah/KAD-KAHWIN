@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  kadkahwin:
+    build: .
+    container_name: kadkahwin_app
+    ports:
+      - "8001:8000"
+    restart: always
+
